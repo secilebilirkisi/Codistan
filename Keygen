@@ -1,0 +1,39 @@
+import random
+import sys
+
+
+def şifregen(le):
+    c=[]
+    havuz="QWERTYUIOPĞÜASDFGHJKLŞİZXCVBNMÖÇqwertyuıopğüasdfghjklşizxcvbnmöç.1234567890*-,!'^+%&/()=?_£#$"
+    havuz=list(havuz)
+    for i in range(0,le):
+        c.append(random.choice(havuz))
+        
+    return ''.join(c)
+
+def şifrekolay(le):
+    c=[]
+    havuz="qwertyuıopğüasdfghjklşizxcvbnmöç"
+    havuz=list(havuz)
+    for i in range(0,le):
+        c.append(random.choice(havuz))
+        
+    return ''.join(c)
+
+
+while True==True:
+    şifre=int(input("Kolay şifre için 1, Zor şifre için 2'yi,çıkmak için 3'ü tuşlayın"))
+    
+
+    if şifre==3:
+        sys.exit()
+           
+    elif şifre==1:     
+        şifre_len=int(input("Kaç birimden oluşacağını tuşlayın"))
+        
+        print(şifrekolay(şifre_len))
+
+    elif şifre==2:
+        şifre_len=int(input("Kaç birimden oluşacağını tuşlayın"))
+        print(şifregen(şifre_len))
+
