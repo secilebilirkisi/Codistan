@@ -1,0 +1,67 @@
+import random
+import sys
+
+tahmin=[]
+i=0
+            
+while i<4:            
+    if i==0:
+        tahmin.append(str(random.randint(1,9)))  #join için STR lazım
+        i=i+1
+    else:
+        tahmin.append(str(random.randint(0,9)))
+        i=i+1
+
+tahmin="".join(tahmin)       # 1234 şeklinde bir çıktı veriyor (join yapmazsan ['1','2','3','4'] şeklinde)
+
+tahmin_sayısı=0
+
+while True==True:
+    user=str(input("""                                              # /n komutuna gerek kalmadan alt alta uzun yazı
+Cows and Bulls'a hoşgeldiniz!
+Aklımdaki 4 haneli sayıyı bilebilecek misiniz? 
+Söylediğiniz sayının rakamlarından birisi
+eğer benim belirlediğim sayının rakamlarından birisiyle aynıysa
+ve basamak olarak da aynı yerdeyse 1 Cow,
+farklı bir basamaktaysa 1 Bull söylenecektir.
+Lütfen 4 haneli bir sayı giriniz:"""))
+    
+    
+       
+    a=0                                         #a'yı indeks sayısı olarak kullanacaz. 4 indeks olacak, 0,1,2,3,  olacak.
+    tahmin_sayısı=tahmin_sayısı+1                       toplam 4 kontrol(while)
+       
+    user=list(user)                                             #user'ın girdiği 4567'yi ['4','5','6','7'] yapıyor böylece index kontrolü
+    
+                                                                 yapıyoruz
+    cow=0
+    bull=0
+    while a<4:
+        if list(tahmin)==user:                                  #tahmin'i tek seferliğine tekrar ['','','',''] yaptık, tam eşitlik kontrol
+            print("Doğru bildin!")
+            print("Tahmin sayısı:"+str(tahmin_sayısı))
+            sys.exit()
+        
+                      
+               
+        elif user[a] in tahmin:              # aslında tahmin bir string olduğu için aynı zamanda liste de oluyor, user'ın a indeksindeki
+                                              say, tahmin listesinin içinde var mı diye bakıyoruz.
+            if user[a]==tahmin[a]:
+                cow=cow+1
+                a=a+1
+            else:
+                
+                bull=bull+1
+                a=a+1
+        else:
+            a=a+1
+            continue                                #while için a değerleri tükenince(0,1,2,3) ilk while'a 
+                                                    geri dönüyor(a sıfırlanıyor, cow, bull
+                                                              sıfırlanıyor.
+        
+                    
+       
+    
+    print("cow:"+str(cow)+","+"bull:"+str(bull))           #cow ve bull değerlerini str'ye çevir ki hata vermesin
+    print("tahmin sayısı:"+str(tahmin_sayısı))
+            
