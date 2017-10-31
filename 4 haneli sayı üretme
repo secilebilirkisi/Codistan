@@ -1,15 +1,15 @@
 import random
 
 tahmin=[]
-i=0
+i=0    #değişkenler için tek = sembolü
 
 # i 0,1,2,3 diye sayacak, böylece 4 sayı üretilecek. i==0 şeklinde başlayıp aralığı 1,9 yap ki ilk sayıya 0 gelmesin
 
 
 while i<4:            
-    if i==0:
+    if i==0:    #değişkene karşılık gelen sayının eşitliği bakıldığı için iki == sembol
         tahmin.append(str(random.randint(1,9)))
-        i=i+1
+        i=i+1   #tekrar değişken atıyoruz, tek = sembolü
     else:
         tahmin.append(str(random.randint(0,9)))
         i=i+1
