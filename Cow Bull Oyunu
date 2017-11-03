@@ -9,7 +9,16 @@ while i<4:
         tahmin.append(str(random.randint(1,9)))  #join için STR lazım
         i=i+1
     else:
-        tahmin.append(str(random.randint(0,9)))
+               
+        while True==True:
+            y=random.randint(0,9)
+            if str(y) not in tahmin:
+                tahmin.append(str(y))
+                break
+                              
+            else:
+                continue
+            
         i=i+1
 
 tahmin="".join(tahmin)       # 1234 şeklinde bir çıktı veriyor (join yapmazsan ['1','2','3','4'] şeklinde)
