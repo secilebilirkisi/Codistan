@@ -1,0 +1,20 @@
+######istediğin tag'e gitme.  ilgili ilk tagı bulur
+soup.tag adı  
+######istediğin tagın alt birimi taga gitme.  ilgili ilk tagı bulur.
+soup.anatag.alttag
+######find
+soup.find() veya soup.find_all()
+
+######contents---örnekle
+head_tag = soup.head        #örnek sitedeki "head" tagı 
+head_tag içeriği ne oldu?
+# <head><title>The Dormouse's story</title></head>  #head_tag değişkeninin içeriği
+
+head_tag.contents
+[<title>The Dormouse's story</title>]   #contents olunca ana tag uçtu(yani head uçtu, içerik-content kaldı)
+
+title_tag = head_tag.contents[0]     #parantez içi olduğu için contents liste sonucu vermiş oldu. Biz de 0. indeksi seçtik(zaten tek öğe var)
+title_tag içeriği?
+# <title>The Dormouse's story</title>   #listeden dışarı çıktı
+title_tag.contents         #tekrar liste yapmak için... yine ana tag uçtu(yani title)
+# [u'The Dormouse's story']]
