@@ -1,0 +1,19 @@
+#  önce requests ve beautifulsoup yükle 
+
+import requests
+from bs4 import BeautifulSoup
+
+
+url= "https://herhangibir site"
+
+r=requests.get(url)     #r herhangi bir değişken, diğerleri komut. bu kod sitenin html içeriğini alıyor.
+r_html=r.text    #.text ile html içindeki textleri alıyor
+
+soup=BeautifulSoup(r_html,"html.parser")  
+
+#html parser seçilmezse de otomatik seçiyor. Texti güzel çorbaya aktarıyoruz ki çorba komutları çalıssın.
+
+y=soup.find_all("p")   # içerisinde p olan tüm tagleri alıyor.
+
+for x in y:
+    print(x.text)   
