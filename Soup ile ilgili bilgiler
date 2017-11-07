@@ -18,3 +18,163 @@ title_tag içeriği?
 # <title>The Dormouse's story</title>   #listeden dışarı çıktı
 title_tag.contents         #tekrar liste yapmak için... yine ana tag uçtu(yani title)
 # [u'The Dormouse's story']]
+
+###### Stringlerin contenti olmaz. Soup'un kendisi de çocuk sahgibi--->html. 
+len(soup.contents)
+1
+soup.contents[0].name
+'html'
+
+#####çocuk bulma:
+
+for child in title_tag.children:       #title_tag neydi?   <title>The Dormouse's story</title>
+    print(child)
+  sonuç: The Dormouse's story  #köşelerden birer tag uçtu.
+  
+######torun bulma:
+for child in head_tag.descendants:
+    print(child)
+# sonuç 1  <title>The Dormouse's story</title>  #esas çocuğu title
+# sonuç 2  The Dormouse's story         #title'ın çocuğu=string(torun)--------------->>> .children ile sadece direkt çocuğu bulunur
+
+#####soup'un çocuğu yok mu?
+
+len(list(soup.children))
+# 1
+len(list(soup.descendants))
+# 25  --------------->>örneğe göre değişir
+
+########string!!
+
+title_tag.string
+# u'The Dormouse's story'
+
+head_tag.string
+# u'The Dormouse's story'  (çocuğunun stringini kullanır!)
+
+
+######parent!!!
+
+title_tag
+# <title>The Dormouse's story</title>
+title_tag.parent
+# <head><title>The Dormouse's story</title></head>
+
+The title string itself has a parent: the <title> tag that contains it:
+title_tag.string.parent
+# <title>The Dormouse's story</title>
+
+###########tüm parentlar yukarı doğru!!!
+
+link = soup.a     #link herhangi bir varyant. soup.a ile ilk karşılaşılan tag'i içerir.
+link içerği?
+# <a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>     #örnekteki a taginin içeriği
+
+for parent in link.parents:     #parent varyant, .parents komut
+    if parent is None:          #None'sa none yaz diyor.
+        print(parent)
+    else:
+        print(parent.name)
+# p
+# body
+# html
+# [document]       #soup documanı
+# None
+
+
+#######KARDEŞLER(aynı hizadaki aynı babalı tagler)
+<a>
+   <b>
+   <c>
+<a>
+
+
+sibling_soup.b.next_sibling    #.next_sibling komut
+# <c>text2</c>
+
+sibling_soup.c.previous_sibling
+# <b>text1</b>
+
+######### FIND KOMUTU:
+
+soup.find_all(["a", "b"])     tüm a ve b tagleri bulur(sonucu da liste içinde ama tek öğe olarak verir)
+
+#####Seçici find komutu:
+
+Here’s a function that returns True if a tag defines the “class” attribute but doesn’t define the “id” attribute:
+
+def has_class_but_no_id(tag):             #TAG DEĞİŞKEN
+    return tag.has_attr('class') and not tag.has_attr('id')
+Pass this function into find_all() and you’ll pick up all the <p> tags:
+
+soup.find_all(has_class_but_no_id)
+# [<p class="title"><b>The Dormouse's story</b></p>,
+#  <p class="story">Once upon a time there were...</p>,
+#  <p class="story">...</p>]
+This function only picks up the <p> tags. It doesn’t pick up the <a> tags, because those tags define both “class” and “id”.
+It doesn’t pick up tags like <html> and <title>, because those tags don’t define “class”.
+
+
+#FIND DETAYLI
+
+
+
+soup.find_all("title")
+# [<title>The Dormouse's story</title>]
+
+soup.find_all("p", "title")
+# [<p class="title"><b>The Dormouse's story</b></p>]
+
+soup.find_all("a")
+# [<a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>,
+#  <a class="sister" href="http://example.com/lacie" id="link2">Lacie</a>,
+#  <a class="sister" href="http://example.com/tillie" id="link3">Tillie</a>]
+
+soup.find_all(id="link2")
+# [<a class="sister" href="http://example.com/lacie" id="link2">Lacie</a>]
+
+This code finds all tags whose id attribute has a value, regardless of what the value is:
+soup.find_all(id=True)
+
+You can filter multiple attributes at once by passing in more than one keyword argument:
+soup.find_all(href=re.compile("elsie"), id='link1')
+
+
+soup.find_all("a", class_="sister")
+# [<a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>,
+#  <a class="sister" href="http://example.com/lacie" id="link2">Lacie</a>,
+#  <a class="sister" href="http://example.com/tillie" id="link3">Tillie</a>]
+
+if you want to search for tags that match two or more CSS classes, you should use a CSS selector:
+css_soup.select("p.strikeout.body")
+# [<p class="body strikeout"></p>]
+
+soup.find_all("a", attrs={"class": "sister"})               #ARATILAMAZ KWELİMELER--like class-- Dictionary içinde aratılabilir!
+# [<a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>,
+#  <a class="sister" href="http://example.com/lacie" id="link2">Lacie</a>,
+#  <a class="sister" href="http://example.com/tillie" id="link3">Tillie</a>]
+
+
+##########string ile arama
+
+soup.find_all(string="Elsie")
+# ['Elsie']
+
+soup.find_all(string=["Tillie", "Elsie", "Lacie"])
+# ['Elsie', 'Lacie', 'Tillie']
+
+This code finds the <a> tags whose .string is “Elsie”:
+soup.find_all("a", string="Elsie")
+# [<a href="http://example.com/elsie" class="sister" id="link1">Elsie</a>]
+
+
+#sonuçları limitle:
+
+
+soup.find_all("a", limit=2)  sadece 2 sonuç
+
+
+#find kardeş vs
+
+.find_parents("a")
+.find_next_siblings
