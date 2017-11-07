@@ -1,2 +1,2 @@
-# Kodistan
+# Codistan
 Mind Blowing Brainstorm... kinda
